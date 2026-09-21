@@ -1,0 +1,182 @@
+# Maps every observable requirement in task/instruction.md to the verifier checks that prove it.
+# Check IDs are defined in evaluation/tests/*.test.js and weighted in evaluation/scoring.yml.
+# run-verifier.js fails if a check is missing here or a listed check does not exist.
+
+requirements:
+  - id: REQ-INSERT-MODE
+    source: instruction.md section 4 (Insert mode)
+    description: >
+      Insert-mode commands i/a/I/A/o/O, <Enter>, <Backspace>, <Space> and <Esc> edit the buffer,
+      and :w/:wq persist it.
+    checks:
+      - BASIC-INSERT-SAVE
+      - BASIC-ENTER-SPACE-BACKSPACE
+      - BASIC-OPEN-LINES
+
+  - id: REQ-FILE-IO
+    source: instruction.md section 3 (File model)
+    description: >
+      Missing files open as an empty buffer and are created by :w; a trailing newline terminates
+      the last line instead of creating an extra empty line; saved files end with a newline.
+    checks:
+      - BASIC-NEW-FILE
+      - BASIC-NO-PHANTOM-LINE
+
+  - id: REQ-HEADLESS-REPORT
+    source: instruction.md section 2 (Headless protocol)
+    description: >
+      The JSON report contains exitCode, exitMessage, finalContent, cursorRow, cursorCol,
+      isDirty and mode, and edits are not written to disk without :w.
+    checks:
+      - BASIC-REPORT-FIELDS
+
+  - id: REQ-UNSAVED-CHANGES-SAFETY
+    source: instruction.md section 6 (Unsaved changes)
+    description: >
+      ':q' is refused with exit code 1 and 'unsaved' on stderr while the buffer differs from the
+      last saved/loaded text; ':q!' discards; ':wq' and ':q' after ':w' succeed; undoing back to
+      the saved text makes the buffer clean.
+    checks:
+      - QUIT-REFUSE-DIRTY
+      - QUIT-FORCE
+      - QUIT-CLEAN
+      - QUIT-WQ
+      - QUIT-AFTER-SAVE
+      - QUIT-DIRTY-IS-CONTENT-BASED
+
+  - id: REQ-COMMAND-LINE
+    source: instruction.md section 5 (Command-line mode)
+    description: >
+      Unknown commands are errors (exit 1, 'unknown' on stderr, never a partial match of :q/:w);
+      ':<number>' jumps to a line and clamps.
+    checks:
+      - CMD-UNKNOWN
+      - CMD-GOTO-LINE
+
+  - id: REQ-REGISTERS
+    source: instruction.md section 4 (Registers)
+    description: >
+      Deletes and yanks fill the unnamed register; an operation with an explicit register
+      ("a-"z) writes only that register and leaves the unnamed register untouched; "<r>p reads
+      it back.
+    checks:
+      - REG-NAMED-NO-CLOBBER
+      - REG-NAMED-PASTE
+      - REG-NAMED-DELETE
+      - REG-UNNAMED-DELETE
+      - REG-TWO-NAMED-INDEPENDENT
+
+  - id: REQ-COUNT-MULTIPLIERS
+    source: instruction.md section 4 (Counts)
+    description: >
+      Counts on dd/dw/p act on exactly that many lines/words/repetitions, clamp at the end of
+      the buffer, and keep multi-line register order.
+    checks:
+      - COUNT-DD
+      - COUNT-DD-CLAMP
+      - COUNT-DD-REGISTER-ORDER
+      - COUNT-P-LINE
+      - COUNT-P-CHAR
+      - COUNT-DW
+
+  - id: REQ-MOTIONS
+    source: instruction.md section 4 (Motions)
+    description: >
+      h j k l w b e 0 $ gg G (with counts) move the cursor to the specified positions, including
+      punctuation words, line crossing, and column clamping with no remembered desired column.
+    checks:
+      - COUNT-MOTIONS
+      - MOTION-WORDS
+      - MOTION-VERTICAL-CLAMP
+
+  - id: REQ-OPERATORS
+    source: instruction.md section 4 (Operators)
+    description: >
+      d/y/c combine with motions (inclusive/exclusive rules for w, e, $, 0, b, linewise j k G
+      gg), the linewise forms dd/yy/cc, and cw behaves like ce.
+    checks:
+      - OP-DW
+      - OP-DW-LAST-WORD
+      - OP-DE
+      - OP-D-DOLLAR
+      - OP-D-ZERO
+      - OP-DB
+      - OP-C-DOLLAR
+      - OP-CW-LIKE-CE
+      - OP-CC
+      - OP-YW-PASTE
+      - OP-LINEWISE-MOTIONS
+
+  - id: REQ-UNDO-REDO
+    source: instruction.md section 4 (Undo / redo)
+    description: >
+      u and <C-r> (with counts) restore text exactly; one Insert session or one operator/paste
+      is one step; yank and empty insert sessions are not steps; a new edit clears redo; at
+      least 100 steps are kept.
+    checks:
+      - COUNT-UNDO
+      - UNDO-INSERT
+      - UNDO-DELETE
+      - UNDO-PASTE
+      - REDO
+      - REDO-CLEARED-BY-NEW-EDIT
+      - UNDO-YANK-NOT-A-STEP
+      - UNDO-NOOP-INSERT
+      - UNDO-DEPTH-100
+
+  - id: REQ-EXTERNAL-MODIFICATION
+    source: instruction.md section 6 (External modification)
+    description: >
+      ':w' and ':wq' refuse to overwrite a file whose on-disk content changed (or appeared)
+      since it was opened or last saved by the editor (exit 1, 'modified' on stderr); identical
+      rewritten bytes are not a change; ':w!' overrides.
+    checks:
+      - EXT-REFUSE
+      - EXT-FORCE
+      - EXT-WQ-REFUSE
+      - EXT-SAME-CONTENT-OK
+      - EXT-CREATED-AFTER-OPEN
+      - EXT-BASELINE-REFRESH
+
+  - id: REQ-CRASH-RECOVERY
+    source: instruction.md section 7 (Swap file and recovery)
+    description: >
+      After a SIGKILL, launching with --recover restores exactly the unsaved edits (also mid-
+      Insert, after an intervening :w, and after a second crash), in Normal mode, with the
+      buffer dirty.
+    checks:
+      - CRASH-RECOVER
+      - CRASH-MID-INSERT
+      - CRASH-COMPLEX-EDITS
+      - CRASH-AFTER-SAVE
+      - CRASH-RECOVERED-IS-DIRTY
+      - CRASH-RECOVER-TWICE
+
+  - id: REQ-SWAP-LIFECYCLE
+    source: instruction.md section 7 (Swap file and recovery)
+    description: >
+      The swap file .<name>.swp exists next to the file from open until a successful quit, is
+      deleted by :q/:wq/:q!, survives a refused :q, and a leftover swap file is ignored (not
+      replayed) when --recover is absent.
+    checks:
+      - SWAP-NAMING
+      - SWAP-DELETED-WQ
+      - SWAP-DELETED-CLEAN-Q
+      - SWAP-DELETED-FORCE-Q
+      - SWAP-KEPT-ON-REFUSED-QUIT
+      - SWAP-STALE-IGNORED
+
+  - id: REQ-VISUAL-MODE
+    source: instruction.md section 4 (Visual mode)
+    description: >
+      v and V select characterwise/linewise (inclusive), support movement, d/y/c with registers,
+      Esc to cancel, and one-step undo.
+    checks:
+      - VISUAL-CHAR-DELETE
+      - VISUAL-CHAR-YANK-PASTE
+      - VISUAL-LINE-DELETE
+      - VISUAL-LINE-YANK-PASTE
+      - VISUAL-CHANGE
+      - VISUAL-ESCAPE
+      - VISUAL-NAMED-REGISTER
+      - VISUAL-UNDO

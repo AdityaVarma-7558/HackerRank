@@ -1,0 +1,12 @@
+{
+  "name": "vim-style-editor-rlgym-task",
+  "version": "0.1.0",
+  "private": true,
+  "description": "RL Gym task: build a terminal Vim-style text editor (modal editing, registers, undo, external-change detection, crash recovery), verified by a hidden black-box suite.",
+  "scripts": {
+    "generate": "node app-setup/generate.js",
+    "score": "node evaluation/tests/harness/run-verifier.js",
+    "check:mutants": "node evaluation/tests/harness/run-mutants.js",
+    "check:reference": "node evaluation/tests/harness/run-verifier.js --target reference --report evaluation/proof-of-work/reference-run/report.json --require-perfect --repeat 3"
+  }
+}

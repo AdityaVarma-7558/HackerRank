@@ -1,0 +1,476 @@
+{
+  "timestamp": "2026-09-20T11:45:25.664Z",
+  "mutants": 20,
+  "allCaught": true,
+  "testFilesWithoutAMutant": [],
+  "results": [
+    {
+      "id": "m01-no-unsaved-guard",
+      "description": ":q exits 0 even when the buffer has unsaved changes",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "QUIT-REFUSE-DIRTY",
+        "SWAP-KEPT-ON-REFUSED-QUIT"
+      ],
+      "failedChecks": [
+        "QUIT-REFUSE-DIRTY",
+        "CRASH-RECOVERED-IS-DIRTY",
+        "SWAP-KEPT-ON-REFUSED-QUIT"
+      ],
+      "failedFiles": [
+        "02-quit-guard.test.js",
+        "06-crash-recovery.test.js",
+        "07-swap-lifecycle.test.js"
+      ],
+      "score": 0.955,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m02-named-yank-clobbers-unnamed",
+      "description": "Writing to a named register also overwrites the unnamed register",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "REG-NAMED-NO-CLOBBER",
+        "REG-NAMED-DELETE"
+      ],
+      "failedChecks": [
+        "REG-NAMED-NO-CLOBBER",
+        "REG-NAMED-DELETE",
+        "VISUAL-NAMED-REGISTER"
+      ],
+      "failedFiles": [
+        "03-registers.test.js",
+        "10-visual-mode.test.js"
+      ],
+      "score": 0.954,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m03-off-by-one-count",
+      "description": "3dd deletes 2 lines (line range computed with count - 2)",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "COUNT-DD"
+      ],
+      "failedChecks": [
+        "COUNT-DD",
+        "COUNT-DD-REGISTER-ORDER",
+        "COUNT-P-LINE",
+        "OP-CC"
+      ],
+      "failedFiles": [
+        "04-counts.test.js",
+        "09-operators-motions.test.js"
+      ],
+      "score": 0.949,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m04-hash-check-skipped",
+      "description": ":w never compares the on-disk content with what was loaded",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "EXT-REFUSE",
+        "EXT-WQ-REFUSE",
+        "EXT-CREATED-AFTER-OPEN"
+      ],
+      "failedChecks": [
+        "EXT-REFUSE",
+        "EXT-WQ-REFUSE",
+        "EXT-CREATED-AFTER-OPEN"
+      ],
+      "failedFiles": [
+        "05-external-mod.test.js"
+      ],
+      "score": 0.94,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m05-journal-not-flushed",
+      "description": "Keystrokes are never written to the swap file, so a SIGKILL loses every edit",
+      "file": "src/core/journal.ts",
+      "expectFail": [
+        "CRASH-RECOVER",
+        "CRASH-MID-INSERT",
+        "CRASH-COMPLEX-EDITS"
+      ],
+      "failedChecks": [
+        "CRASH-RECOVER",
+        "CRASH-MID-INSERT",
+        "CRASH-COMPLEX-EDITS",
+        "CRASH-AFTER-SAVE",
+        "CRASH-RECOVERED-IS-DIRTY",
+        "CRASH-RECOVER-TWICE"
+      ],
+      "failedFiles": [
+        "06-crash-recovery.test.js"
+      ],
+      "score": 0.88,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m06-empty-line-insert-skipped",
+      "description": "Typing a character into a genuinely empty line is silently dropped",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "BASIC-ENTER-SPACE-BACKSPACE",
+        "BASIC-NEW-FILE"
+      ],
+      "failedChecks": [
+        "BASIC-ENTER-SPACE-BACKSPACE",
+        "BASIC-OPEN-LINES",
+        "BASIC-NEW-FILE",
+        "CRASH-COMPLEX-EDITS",
+        "OP-CC",
+        "VISUAL-CHANGE"
+      ],
+      "failedFiles": [
+        "01-basic-edit.test.js",
+        "06-crash-recovery.test.js",
+        "09-operators-motions.test.js",
+        "10-visual-mode.test.js"
+      ],
+      "score": 0.921,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m07-swap-not-cleared-on-quit",
+      "description": "The swap file is left behind after a clean quit",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "SWAP-DELETED-WQ",
+        "SWAP-DELETED-CLEAN-Q",
+        "SWAP-DELETED-FORCE-Q"
+      ],
+      "failedChecks": [
+        "SWAP-DELETED-WQ",
+        "SWAP-DELETED-CLEAN-Q",
+        "SWAP-DELETED-FORCE-Q",
+        "SWAP-STALE-IGNORED"
+      ],
+      "failedFiles": [
+        "07-swap-lifecycle.test.js"
+      ],
+      "score": 0.947,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m08-redo-stack-not-filled",
+      "description": "Undo forgets what it undid, so <C-r> does nothing",
+      "file": "src/core/undo.ts",
+      "expectFail": [
+        "REDO"
+      ],
+      "failedChecks": [
+        "REDO"
+      ],
+      "failedFiles": [
+        "08-undo-redo.test.js"
+      ],
+      "score": 0.986,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m09-d-dollar-exclusive",
+      "description": "d$ / c$ leave the last character of the line behind",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "OP-D-DOLLAR",
+        "OP-C-DOLLAR"
+      ],
+      "failedChecks": [
+        "OP-D-DOLLAR",
+        "OP-C-DOLLAR"
+      ],
+      "failedFiles": [
+        "09-operators-motions.test.js"
+      ],
+      "score": 0.982,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m10-paste-block-reversed",
+      "description": "Linewise paste inserts a multi-line register in reverse order",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "COUNT-DD-REGISTER-ORDER",
+        "COUNT-P-LINE"
+      ],
+      "failedChecks": [
+        "COUNT-DD-REGISTER-ORDER",
+        "COUNT-P-LINE",
+        "VISUAL-LINE-YANK-PASTE"
+      ],
+      "failedFiles": [
+        "04-counts.test.js",
+        "10-visual-mode.test.js"
+      ],
+      "score": 0.962,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m11-journal-not-truncated-on-save",
+      "description": "The swap file keeps pre-save keystrokes, so recovery re-applies saved edits",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "CRASH-AFTER-SAVE"
+      ],
+      "failedChecks": [
+        "CRASH-AFTER-SAVE"
+      ],
+      "failedFiles": [
+        "06-crash-recovery.test.js"
+      ],
+      "score": 0.98,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m12-stale-swap-replayed",
+      "description": "A leftover swap file is replayed on every open, even without --recover",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "SWAP-STALE-IGNORED"
+      ],
+      "failedChecks": [
+        "SWAP-STALE-IGNORED",
+        "REDO",
+        "OP-DW",
+        "OP-DW-LAST-WORD",
+        "OP-YW-PASTE",
+        "OP-LINEWISE-MOTIONS",
+        "MOTION-WORDS",
+        "MOTION-VERTICAL-CLAMP",
+        "VISUAL-CHAR-DELETE",
+        "VISUAL-CHAR-YANK-PASTE",
+        "VISUAL-CHANGE",
+        "VISUAL-ESCAPE",
+        "VISUAL-NAMED-REGISTER"
+      ],
+      "failedFiles": [
+        "07-swap-lifecycle.test.js",
+        "08-undo-redo.test.js",
+        "09-operators-motions.test.js",
+        "10-visual-mode.test.js"
+      ],
+      "score": 0.867,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m13-mtime-instead-of-content",
+      "description": "External-change detection uses mtime, so rewriting identical bytes is refused",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "EXT-SAME-CONTENT-OK"
+      ],
+      "failedChecks": [
+        "EXT-SAME-CONTENT-OK"
+      ],
+      "failedFiles": [
+        "05-external-mod.test.js"
+      ],
+      "score": 0.98,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m14-undo-depth-50",
+      "description": "The undo history is capped at 50 entries",
+      "file": "src/core/undo.ts",
+      "expectFail": [
+        "UNDO-DEPTH-100"
+      ],
+      "failedChecks": [
+        "UNDO-DEPTH-100"
+      ],
+      "failedFiles": [
+        "08-undo-redo.test.js"
+      ],
+      "score": 0.987,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m15-dw-joins-lines",
+      "description": "dw on the last word of a line swallows the newline and joins the next line",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "OP-DW-LAST-WORD"
+      ],
+      "failedChecks": [
+        "OP-DW-LAST-WORD"
+      ],
+      "failedFiles": [
+        "09-operators-motions.test.js"
+      ],
+      "score": 0.99,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m16-yank-is-undoable",
+      "description": "yy pushes an undo entry although it changes nothing",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "UNDO-YANK-NOT-A-STEP"
+      ],
+      "failedChecks": [
+        "UNDO-YANK-NOT-A-STEP"
+      ],
+      "failedFiles": [
+        "08-undo-redo.test.js"
+      ],
+      "score": 0.986,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m17-visual-selection-exclusive",
+      "description": "Characterwise Visual selection excludes the character under the cursor",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "VISUAL-CHAR-DELETE",
+        "VISUAL-CHAR-YANK-PASTE"
+      ],
+      "failedChecks": [
+        "VISUAL-CHAR-DELETE",
+        "VISUAL-CHAR-YANK-PASTE",
+        "VISUAL-CHANGE",
+        "VISUAL-NAMED-REGISTER"
+      ],
+      "failedFiles": [
+        "10-visual-mode.test.js"
+      ],
+      "score": 0.96,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m18-recovery-stays-in-insert",
+      "description": "After recovering a session killed mid-Insert the editor is still in Insert mode",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "CRASH-MID-INSERT"
+      ],
+      "failedChecks": [
+        "CRASH-MID-INSERT"
+      ],
+      "failedFiles": [
+        "06-crash-recovery.test.js"
+      ],
+      "score": 0.98,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m19-partial-command-match",
+      "description": "Any command starting with q quits, so :qq (and typos) are accepted",
+      "file": "src/core/engine.ts",
+      "expectFail": [
+        "CMD-UNKNOWN"
+      ],
+      "failedChecks": [
+        "CMD-UNKNOWN"
+      ],
+      "failedFiles": [
+        "02-quit-guard.test.js"
+      ],
+      "score": 0.989,
+      "caught": true,
+      "expectedChecksFailed": true
+    },
+    {
+      "id": "m20-phantom-last-line",
+      "description": "A trailing newline in the file is loaded as an extra empty last line",
+      "file": "src/core/buffer.ts",
+      "expectFail": [
+        "BASIC-NO-PHANTOM-LINE"
+      ],
+      "failedChecks": [
+        "BASIC-INSERT-SAVE",
+        "BASIC-OPEN-LINES",
+        "BASIC-NO-PHANTOM-LINE",
+        "BASIC-REPORT-FIELDS",
+        "QUIT-WQ",
+        "QUIT-AFTER-SAVE",
+        "CMD-GOTO-LINE",
+        "REG-NAMED-NO-CLOBBER",
+        "REG-NAMED-PASTE",
+        "REG-NAMED-DELETE",
+        "REG-UNNAMED-DELETE",
+        "REG-TWO-NAMED-INDEPENDENT",
+        "COUNT-DD",
+        "COUNT-DD-REGISTER-ORDER",
+        "COUNT-P-LINE",
+        "COUNT-P-CHAR",
+        "COUNT-DW",
+        "COUNT-MOTIONS",
+        "COUNT-UNDO",
+        "EXT-FORCE",
+        "EXT-SAME-CONTENT-OK",
+        "EXT-BASELINE-REFRESH",
+        "CRASH-RECOVER",
+        "CRASH-MID-INSERT",
+        "CRASH-COMPLEX-EDITS",
+        "CRASH-AFTER-SAVE",
+        "CRASH-RECOVERED-IS-DIRTY",
+        "CRASH-RECOVER-TWICE",
+        "SWAP-STALE-IGNORED",
+        "UNDO-INSERT",
+        "UNDO-DELETE",
+        "UNDO-PASTE",
+        "REDO",
+        "REDO-CLEARED-BY-NEW-EDIT",
+        "UNDO-YANK-NOT-A-STEP",
+        "UNDO-NOOP-INSERT",
+        "UNDO-DEPTH-100",
+        "OP-DW",
+        "OP-DW-LAST-WORD",
+        "OP-DE",
+        "OP-D-DOLLAR",
+        "OP-D-ZERO",
+        "OP-DB",
+        "OP-C-DOLLAR",
+        "OP-CW-LIKE-CE",
+        "OP-CC",
+        "OP-YW-PASTE",
+        "OP-LINEWISE-MOTIONS",
+        "MOTION-VERTICAL-CLAMP",
+        "VISUAL-CHAR-DELETE",
+        "VISUAL-CHAR-YANK-PASTE",
+        "VISUAL-LINE-DELETE",
+        "VISUAL-LINE-YANK-PASTE",
+        "VISUAL-CHANGE",
+        "VISUAL-ESCAPE",
+        "VISUAL-NAMED-REGISTER",
+        "VISUAL-UNDO"
+      ],
+      "failedFiles": [
+        "01-basic-edit.test.js",
+        "02-quit-guard.test.js",
+        "03-registers.test.js",
+        "04-counts.test.js",
+        "05-external-mod.test.js",
+        "06-crash-recovery.test.js",
+        "07-swap-lifecycle.test.js",
+        "08-undo-redo.test.js",
+        "09-operators-motions.test.js",
+        "10-visual-mode.test.js"
+      ],
+      "score": 0.234,
+      "caught": true,
+      "expectedChecksFailed": true
+    }
+  ]
+}

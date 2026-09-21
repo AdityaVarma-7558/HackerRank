@@ -1,0 +1,162 @@
+[
+  {
+    "id": "m01-no-unsaved-guard",
+    "description": ":q exits 0 even when the buffer has unsaved changes",
+    "file": "src/core/engine.ts",
+    "find": "if (!force && this.isDirty) {",
+    "replace": "if (false) {",
+    "expectFail": ["QUIT-REFUSE-DIRTY", "SWAP-KEPT-ON-REFUSED-QUIT"]
+  },
+  {
+    "id": "m02-named-yank-clobbers-unnamed",
+    "description": "Writing to a named register also overwrites the unnamed register",
+    "file": "src/core/engine.ts",
+    "find": "this.registers.set(regName || '', text, type);",
+    "replace": "this.registers.set(regName || '', text, type);\n    if (regName) this.registers.set('', text, type);",
+    "expectFail": ["REG-NAMED-NO-CLOBBER", "REG-NAMED-DELETE"]
+  },
+  {
+    "id": "m03-off-by-one-count",
+    "description": "3dd deletes 2 lines (line range computed with count - 2)",
+    "file": "src/core/engine.ts",
+    "find": "const r2 = Math.min(b.lines.length - 1, b.cursorRow + count - 1);",
+    "replace": "const r2 = Math.min(b.lines.length - 1, Math.max(b.cursorRow, b.cursorRow + count - 2));",
+    "expectFail": ["COUNT-DD"]
+  },
+  {
+    "id": "m04-hash-check-skipped",
+    "description": ":w never compares the on-disk content with what was loaded",
+    "file": "src/core/engine.ts",
+    "find": "(init === null && cur !== null) || (init !== null && cur !== null && cur.sha256 !== init.sha256)",
+    "replace": "false",
+    "expectFail": ["EXT-REFUSE", "EXT-WQ-REFUSE", "EXT-CREATED-AFTER-OPEN"]
+  },
+  {
+    "id": "m05-journal-not-flushed",
+    "description": "Keystrokes are never written to the swap file, so a SIGKILL loses every edit",
+    "file": "src/core/journal.ts",
+    "find": "fs.appendFileSync(this.swapFile, JSON.stringify(entry) + '\\n');\n  }\n\n  readAll",
+    "replace": "void entry;\n  }\n\n  readAll",
+    "expectFail": ["CRASH-RECOVER", "CRASH-MID-INSERT", "CRASH-COMPLEX-EDITS"]
+  },
+  {
+    "id": "m06-empty-line-insert-skipped",
+    "description": "Typing a character into a genuinely empty line is silently dropped",
+    "file": "src/core/engine.ts",
+    "find": "if (ch) {",
+    "replace": "if (ch && line.length > 0) {",
+    "expectFail": ["BASIC-ENTER-SPACE-BACKSPACE", "BASIC-NEW-FILE"]
+  },
+  {
+    "id": "m07-swap-not-cleared-on-quit",
+    "description": "The swap file is left behind after a clean quit",
+    "file": "src/core/engine.ts",
+    "find": "this.journal.deleteSwap();\n    this.exitRequested = true;",
+    "replace": "this.exitRequested = true;",
+    "expectFail": ["SWAP-DELETED-WQ", "SWAP-DELETED-CLEAN-Q", "SWAP-DELETED-FORCE-Q"]
+  },
+  {
+    "id": "m08-redo-stack-not-filled",
+    "description": "Undo forgets what it undid, so <C-r> does nothing",
+    "file": "src/core/undo.ts",
+    "find": "this.redoStack.push(buffer.snapshot());",
+    "replace": "",
+    "expectFail": ["REDO"]
+  },
+  {
+    "id": "m09-d-dollar-exclusive",
+    "description": "d$ / c$ leave the last character of the line behind",
+    "file": "src/core/engine.ts",
+    "find": "return { pos: { row, col: lines[row].length }, linewise: false, inclusive: false };",
+    "replace": "return { pos: { row, col: lines[row].length - 1 }, linewise: false, inclusive: false };",
+    "expectFail": ["OP-D-DOLLAR", "OP-C-DOLLAR"]
+  },
+  {
+    "id": "m10-paste-block-reversed",
+    "description": "Linewise paste inserts a multi-line register in reverse order",
+    "file": "src/core/engine.ts",
+    "find": "b.lines.splice(at, 0, ...block);",
+    "replace": "b.lines.splice(at, 0, ...block.slice().reverse());",
+    "expectFail": ["COUNT-DD-REGISTER-ORDER", "COUNT-P-LINE"]
+  },
+  {
+    "id": "m11-journal-not-truncated-on-save",
+    "description": "The swap file keeps pre-save keystrokes, so recovery re-applies saved edits",
+    "file": "src/core/engine.ts",
+    "find": "this.journal.reset(this.diskMeta);\n    return true;",
+    "replace": "return true;",
+    "expectFail": ["CRASH-AFTER-SAVE"]
+  },
+  {
+    "id": "m12-stale-swap-replayed",
+    "description": "A leftover swap file is replayed on every open, even without --recover",
+    "file": "src/core/engine.ts",
+    "find": "if (recover && this.journal.hasSwap()) {",
+    "replace": "if (this.journal.hasSwap()) {",
+    "expectFail": ["SWAP-STALE-IGNORED"]
+  },
+  {
+    "id": "m13-mtime-instead-of-content",
+    "description": "External-change detection uses mtime, so rewriting identical bytes is refused",
+    "file": "src/core/engine.ts",
+    "find": "cur.sha256 !== init.sha256",
+    "replace": "cur.mtimeMs !== init.mtimeMs",
+    "expectFail": ["EXT-SAME-CONTENT-OK"]
+  },
+  {
+    "id": "m14-undo-depth-50",
+    "description": "The undo history is capped at 50 entries",
+    "file": "src/core/undo.ts",
+    "find": "private maxDepth = 1000;",
+    "replace": "private maxDepth = 50;",
+    "expectFail": ["UNDO-DEPTH-100"]
+  },
+  {
+    "id": "m15-dw-joins-lines",
+    "description": "dw on the last word of a line swallows the newline and joins the next line",
+    "file": "src/core/engine.ts",
+    "find": "if (key === 'w' && z.row > a.row) z = { row: a.row, col: lines[a.row].length };",
+    "replace": "",
+    "expectFail": ["OP-DW-LAST-WORD"]
+  },
+  {
+    "id": "m16-yank-is-undoable",
+    "description": "yy pushes an undo entry although it changes nothing",
+    "file": "src/core/engine.ts",
+    "find": "if (op === 'y') {\n      if (range.kind === 'line') {",
+    "replace": "if (op === 'y') {\n      this.pushUndo();\n      if (range.kind === 'line') {",
+    "expectFail": ["UNDO-YANK-NOT-A-STEP"]
+  },
+  {
+    "id": "m17-visual-selection-exclusive",
+    "description": "Characterwise Visual selection excludes the character under the cursor",
+    "file": "src/core/engine.ts",
+    "find": "col: Math.min(z.col + 1, b.lines[z.row].length)",
+    "replace": "col: z.col",
+    "expectFail": ["VISUAL-CHAR-DELETE", "VISUAL-CHAR-YANK-PASTE"]
+  },
+  {
+    "id": "m18-recovery-stays-in-insert",
+    "description": "After recovering a session killed mid-Insert the editor is still in Insert mode",
+    "file": "src/core/engine.ts",
+    "find": "if (this.mode !== Mode.Normal || this.hasPendingState()) {",
+    "replace": "if (false) {",
+    "expectFail": ["CRASH-MID-INSERT"]
+  },
+  {
+    "id": "m19-partial-command-match",
+    "description": "Any command starting with q quits, so :qq (and typos) are accepted",
+    "file": "src/core/engine.ts",
+    "find": "default:\n        this.fail(`E492: unknown command: ${cmd}`);",
+    "replace": "default:\n        if (cmd.startsWith('q')) this.quit(true);\n        else this.fail(`E492: unknown command: ${cmd}`);",
+    "expectFail": ["CMD-UNKNOWN"]
+  },
+  {
+    "id": "m20-phantom-last-line",
+    "description": "A trailing newline in the file is loaded as an extra empty last line",
+    "file": "src/core/buffer.ts",
+    "find": "const body = raw.endsWith('\\n') ? raw.slice(0, -1) : raw;",
+    "replace": "const body = raw;",
+    "expectFail": ["BASIC-NO-PHANTOM-LINE"]
+  }
+]

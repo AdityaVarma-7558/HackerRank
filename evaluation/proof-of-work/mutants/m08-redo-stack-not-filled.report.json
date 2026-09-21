@@ -1,0 +1,482 @@
+{
+  "target": "workspace/.mutants/m08-redo-stack-not-filled",
+  "timestamp": "2026-09-20T11:44:07.775Z",
+  "build": {
+    "ok": true
+  },
+  "score": 0.986,
+  "scorePercent": 98.6,
+  "checksPassed": 73,
+  "checksTotal": 74,
+  "repeats": 1,
+  "deterministic": true,
+  "results": [
+    {
+      "id": "BASIC-INSERT-SAVE",
+      "file": "01-basic-edit.test.js",
+      "passed": true
+    },
+    {
+      "id": "BASIC-ENTER-SPACE-BACKSPACE",
+      "file": "01-basic-edit.test.js",
+      "passed": true
+    },
+    {
+      "id": "BASIC-OPEN-LINES",
+      "file": "01-basic-edit.test.js",
+      "passed": true
+    },
+    {
+      "id": "BASIC-NEW-FILE",
+      "file": "01-basic-edit.test.js",
+      "passed": true
+    },
+    {
+      "id": "BASIC-NO-PHANTOM-LINE",
+      "file": "01-basic-edit.test.js",
+      "passed": true
+    },
+    {
+      "id": "BASIC-REPORT-FIELDS",
+      "file": "01-basic-edit.test.js",
+      "passed": true
+    },
+    {
+      "id": "QUIT-REFUSE-DIRTY",
+      "file": "02-quit-guard.test.js",
+      "passed": true
+    },
+    {
+      "id": "QUIT-FORCE",
+      "file": "02-quit-guard.test.js",
+      "passed": true
+    },
+    {
+      "id": "QUIT-CLEAN",
+      "file": "02-quit-guard.test.js",
+      "passed": true
+    },
+    {
+      "id": "QUIT-WQ",
+      "file": "02-quit-guard.test.js",
+      "passed": true
+    },
+    {
+      "id": "QUIT-AFTER-SAVE",
+      "file": "02-quit-guard.test.js",
+      "passed": true
+    },
+    {
+      "id": "QUIT-DIRTY-IS-CONTENT-BASED",
+      "file": "02-quit-guard.test.js",
+      "passed": true
+    },
+    {
+      "id": "CMD-UNKNOWN",
+      "file": "02-quit-guard.test.js",
+      "passed": true
+    },
+    {
+      "id": "CMD-GOTO-LINE",
+      "file": "02-quit-guard.test.js",
+      "passed": true
+    },
+    {
+      "id": "REG-NAMED-NO-CLOBBER",
+      "file": "03-registers.test.js",
+      "passed": true
+    },
+    {
+      "id": "REG-NAMED-PASTE",
+      "file": "03-registers.test.js",
+      "passed": true
+    },
+    {
+      "id": "REG-NAMED-DELETE",
+      "file": "03-registers.test.js",
+      "passed": true
+    },
+    {
+      "id": "REG-UNNAMED-DELETE",
+      "file": "03-registers.test.js",
+      "passed": true
+    },
+    {
+      "id": "REG-TWO-NAMED-INDEPENDENT",
+      "file": "03-registers.test.js",
+      "passed": true
+    },
+    {
+      "id": "COUNT-DD",
+      "file": "04-counts.test.js",
+      "passed": true
+    },
+    {
+      "id": "COUNT-DD-CLAMP",
+      "file": "04-counts.test.js",
+      "passed": true
+    },
+    {
+      "id": "COUNT-DD-REGISTER-ORDER",
+      "file": "04-counts.test.js",
+      "passed": true
+    },
+    {
+      "id": "COUNT-P-LINE",
+      "file": "04-counts.test.js",
+      "passed": true
+    },
+    {
+      "id": "COUNT-P-CHAR",
+      "file": "04-counts.test.js",
+      "passed": true
+    },
+    {
+      "id": "COUNT-DW",
+      "file": "04-counts.test.js",
+      "passed": true
+    },
+    {
+      "id": "COUNT-MOTIONS",
+      "file": "04-counts.test.js",
+      "passed": true
+    },
+    {
+      "id": "COUNT-UNDO",
+      "file": "04-counts.test.js",
+      "passed": true
+    },
+    {
+      "id": "EXT-REFUSE",
+      "file": "05-external-mod.test.js",
+      "passed": true
+    },
+    {
+      "id": "EXT-FORCE",
+      "file": "05-external-mod.test.js",
+      "passed": true
+    },
+    {
+      "id": "EXT-WQ-REFUSE",
+      "file": "05-external-mod.test.js",
+      "passed": true
+    },
+    {
+      "id": "EXT-SAME-CONTENT-OK",
+      "file": "05-external-mod.test.js",
+      "passed": true
+    },
+    {
+      "id": "EXT-CREATED-AFTER-OPEN",
+      "file": "05-external-mod.test.js",
+      "passed": true
+    },
+    {
+      "id": "EXT-BASELINE-REFRESH",
+      "file": "05-external-mod.test.js",
+      "passed": true
+    },
+    {
+      "id": "CRASH-RECOVER",
+      "file": "06-crash-recovery.test.js",
+      "passed": true
+    },
+    {
+      "id": "CRASH-MID-INSERT",
+      "file": "06-crash-recovery.test.js",
+      "passed": true
+    },
+    {
+      "id": "CRASH-COMPLEX-EDITS",
+      "file": "06-crash-recovery.test.js",
+      "passed": true
+    },
+    {
+      "id": "CRASH-AFTER-SAVE",
+      "file": "06-crash-recovery.test.js",
+      "passed": true
+    },
+    {
+      "id": "CRASH-RECOVERED-IS-DIRTY",
+      "file": "06-crash-recovery.test.js",
+      "passed": true
+    },
+    {
+      "id": "CRASH-RECOVER-TWICE",
+      "file": "06-crash-recovery.test.js",
+      "passed": true
+    },
+    {
+      "id": "SWAP-NAMING",
+      "file": "07-swap-lifecycle.test.js",
+      "passed": true
+    },
+    {
+      "id": "SWAP-DELETED-WQ",
+      "file": "07-swap-lifecycle.test.js",
+      "passed": true
+    },
+    {
+      "id": "SWAP-DELETED-CLEAN-Q",
+      "file": "07-swap-lifecycle.test.js",
+      "passed": true
+    },
+    {
+      "id": "SWAP-DELETED-FORCE-Q",
+      "file": "07-swap-lifecycle.test.js",
+      "passed": true
+    },
+    {
+      "id": "SWAP-KEPT-ON-REFUSED-QUIT",
+      "file": "07-swap-lifecycle.test.js",
+      "passed": true
+    },
+    {
+      "id": "SWAP-STALE-IGNORED",
+      "file": "07-swap-lifecycle.test.js",
+      "passed": true
+    },
+    {
+      "id": "UNDO-INSERT",
+      "file": "08-undo-redo.test.js",
+      "passed": true
+    },
+    {
+      "id": "UNDO-DELETE",
+      "file": "08-undo-redo.test.js",
+      "passed": true
+    },
+    {
+      "id": "UNDO-PASTE",
+      "file": "08-undo-redo.test.js",
+      "passed": true
+    },
+    {
+      "id": "REDO",
+      "file": "08-undo-redo.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'a\\nb' !== 'b' | "
+    },
+    {
+      "id": "REDO-CLEARED-BY-NEW-EDIT",
+      "file": "08-undo-redo.test.js",
+      "passed": true
+    },
+    {
+      "id": "UNDO-YANK-NOT-A-STEP",
+      "file": "08-undo-redo.test.js",
+      "passed": true
+    },
+    {
+      "id": "UNDO-NOOP-INSERT",
+      "file": "08-undo-redo.test.js",
+      "passed": true
+    },
+    {
+      "id": "UNDO-DEPTH-100",
+      "file": "08-undo-redo.test.js",
+      "passed": true
+    },
+    {
+      "id": "OP-DW",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "OP-DW-LAST-WORD",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "OP-DE",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "OP-D-DOLLAR",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "OP-D-ZERO",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "OP-DB",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "OP-C-DOLLAR",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "OP-CW-LIKE-CE",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "OP-CC",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "OP-YW-PASTE",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "OP-LINEWISE-MOTIONS",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "MOTION-WORDS",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "MOTION-VERTICAL-CLAMP",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "VISUAL-CHAR-DELETE",
+      "file": "10-visual-mode.test.js",
+      "passed": true
+    },
+    {
+      "id": "VISUAL-CHAR-YANK-PASTE",
+      "file": "10-visual-mode.test.js",
+      "passed": true
+    },
+    {
+      "id": "VISUAL-LINE-DELETE",
+      "file": "10-visual-mode.test.js",
+      "passed": true
+    },
+    {
+      "id": "VISUAL-LINE-YANK-PASTE",
+      "file": "10-visual-mode.test.js",
+      "passed": true
+    },
+    {
+      "id": "VISUAL-CHANGE",
+      "file": "10-visual-mode.test.js",
+      "passed": true
+    },
+    {
+      "id": "VISUAL-ESCAPE",
+      "file": "10-visual-mode.test.js",
+      "passed": true
+    },
+    {
+      "id": "VISUAL-NAMED-REGISTER",
+      "file": "10-visual-mode.test.js",
+      "passed": true
+    },
+    {
+      "id": "VISUAL-UNDO",
+      "file": "10-visual-mode.test.js",
+      "passed": true
+    }
+  ],
+  "byRequirement": [
+    {
+      "requirement": "REQ-INSERT-MODE",
+      "weight": 0.041,
+      "earned": 0.041,
+      "failedChecks": []
+    },
+    {
+      "requirement": "REQ-FILE-IO",
+      "weight": 0.026,
+      "earned": 0.026,
+      "failedChecks": []
+    },
+    {
+      "requirement": "REQ-HEADLESS-REPORT",
+      "weight": 0.013,
+      "earned": 0.013,
+      "failedChecks": []
+    },
+    {
+      "requirement": "REQ-UNSAVED-CHANGES-SAFETY",
+      "weight": 0.068,
+      "earned": 0.068,
+      "failedChecks": []
+    },
+    {
+      "requirement": "REQ-COMMAND-LINE",
+      "weight": 0.022,
+      "earned": 0.022,
+      "failedChecks": []
+    },
+    {
+      "requirement": "REQ-REGISTERS",
+      "weight": 0.09,
+      "earned": 0.09,
+      "failedChecks": []
+    },
+    {
+      "requirement": "REQ-COUNT-MULTIPLIERS",
+      "weight": 0.084,
+      "earned": 0.084,
+      "failedChecks": []
+    },
+    {
+      "requirement": "REQ-MOTIONS",
+      "weight": 0.031,
+      "earned": 0.031,
+      "failedChecks": []
+    },
+    {
+      "requirement": "REQ-OPERATORS",
+      "weight": 0.102,
+      "earned": 0.102,
+      "failedChecks": []
+    },
+    {
+      "requirement": "REQ-UNDO-REDO",
+      "weight": 0.123,
+      "earned": 0.109,
+      "failedChecks": [
+        "REDO"
+      ]
+    },
+    {
+      "requirement": "REQ-EXTERNAL-MODIFICATION",
+      "weight": 0.12,
+      "earned": 0.12,
+      "failedChecks": []
+    },
+    {
+      "requirement": "REQ-CRASH-RECOVERY",
+      "weight": 0.12,
+      "earned": 0.12,
+      "failedChecks": []
+    },
+    {
+      "requirement": "REQ-SWAP-LIFECYCLE",
+      "weight": 0.08,
+      "earned": 0.08,
+      "failedChecks": []
+    },
+    {
+      "requirement": "REQ-VISUAL-MODE",
+      "weight": 0.08,
+      "earned": 0.08,
+      "failedChecks": []
+    }
+  ],
+  "failureCategories": [
+    {
+      "requirement": "REQ-UNDO-REDO",
+      "failedChecks": [
+        "REDO"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,728 @@
+{
+  "target": "workspace/.mutants/m20-phantom-last-line",
+  "timestamp": "2026-09-20T11:45:25.653Z",
+  "build": {
+    "ok": true
+  },
+  "score": 0.234,
+  "scorePercent": 23.4,
+  "checksPassed": 17,
+  "checksTotal": 74,
+  "repeats": 1,
+  "deterministic": true,
+  "results": [
+    {
+      "id": "BASIC-INSERT-SAVE",
+      "file": "01-basic-edit.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'foo_bar\\n\\n'"
+    },
+    {
+      "id": "BASIC-ENTER-SPACE-BACKSPACE",
+      "file": "01-basic-edit.test.js",
+      "passed": true
+    },
+    {
+      "id": "BASIC-OPEN-LINES",
+      "file": "01-basic-edit.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + '>one\\nX\\ntwo\\nY\\n\\n'"
+    },
+    {
+      "id": "BASIC-NEW-FILE",
+      "file": "01-basic-edit.test.js",
+      "passed": true
+    },
+    {
+      "id": "BASIC-NO-PHANTOM-LINE",
+      "file": "01-basic-edit.test.js",
+      "passed": false,
+      "message": "a trailing newline must not create an extra empty last line | + actual - expected |  | + 'a\\nb\\nx\\n'"
+    },
+    {
+      "id": "BASIC-REPORT-FIELDS",
+      "file": "01-basic-edit.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'abcde\\n' !== 'abcde' | "
+    },
+    {
+      "id": "QUIT-REFUSE-DIRTY",
+      "file": "02-quit-guard.test.js",
+      "passed": true
+    },
+    {
+      "id": "QUIT-FORCE",
+      "file": "02-quit-guard.test.js",
+      "passed": true
+    },
+    {
+      "id": "QUIT-CLEAN",
+      "file": "02-quit-guard.test.js",
+      "passed": true
+    },
+    {
+      "id": "QUIT-WQ",
+      "file": "02-quit-guard.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'xa\\n\\n' !== 'xa\\n' | "
+    },
+    {
+      "id": "QUIT-AFTER-SAVE",
+      "file": "02-quit-guard.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'xa\\n\\n' !== 'xa\\n' | "
+    },
+    {
+      "id": "QUIT-DIRTY-IS-CONTENT-BASED",
+      "file": "02-quit-guard.test.js",
+      "passed": true
+    },
+    {
+      "id": "CMD-UNKNOWN",
+      "file": "02-quit-guard.test.js",
+      "passed": true
+    },
+    {
+      "id": "CMD-GOTO-LINE",
+      "file": "02-quit-guard.test.js",
+      "passed": false,
+      "message": "line numbers past the end clamp to the last line |  | 2 !== 1 | "
+    },
+    {
+      "id": "REG-NAMED-NO-CLOBBER",
+      "file": "03-registers.test.js",
+      "passed": false,
+      "message": "p must paste the unnamed register (line1), not \"a | + actual - expected |  | + 'line1\\nline2\\nline1\\nline3\\n\\n'"
+    },
+    {
+      "id": "REG-NAMED-PASTE",
+      "file": "03-registers.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'line1\\nline2\\nline3\\n\\nline1\\n'"
+    },
+    {
+      "id": "REG-NAMED-DELETE",
+      "file": "03-registers.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'line1\\nline3\\n\\nline1\\nline2\\n'"
+    },
+    {
+      "id": "REG-UNNAMED-DELETE",
+      "file": "03-registers.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'line2\\nline1\\nline3\\n\\n'"
+    },
+    {
+      "id": "REG-TWO-NAMED-INDEPENDENT",
+      "file": "03-registers.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'line1\\nline2\\nline3\\n\\nline1\\nline2\\n'"
+    },
+    {
+      "id": "COUNT-DD",
+      "file": "04-counts.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + '4\\n5\\n\\n'"
+    },
+    {
+      "id": "COUNT-DD-CLAMP",
+      "file": "04-counts.test.js",
+      "passed": true
+    },
+    {
+      "id": "COUNT-DD-REGISTER-ORDER",
+      "file": "04-counts.test.js",
+      "passed": false,
+      "message": "deleted lines must be pasted back in their original order | + actual - expected |  | + 'c\\nd\\n\\na\\nb\\n'"
+    },
+    {
+      "id": "COUNT-P-LINE",
+      "file": "04-counts.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'a\\na\\nb\\na\\nb\\na\\nb\\nb\\nc\\n\\n'"
+    },
+    {
+      "id": "COUNT-P-CHAR",
+      "file": "04-counts.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'aaaab\\n\\n'"
+    },
+    {
+      "id": "COUNT-DW",
+      "file": "04-counts.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'three four\\n\\n'"
+    },
+    {
+      "id": "COUNT-MOTIONS",
+      "file": "04-counts.test.js",
+      "passed": false,
+      "message": "9G clamps to the last line |  | 5 !== 4 | "
+    },
+    {
+      "id": "COUNT-UNDO",
+      "file": "04-counts.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'x1\\n' !== 'x1' | "
+    },
+    {
+      "id": "EXT-REFUSE",
+      "file": "05-external-mod.test.js",
+      "passed": true
+    },
+    {
+      "id": "EXT-FORCE",
+      "file": "05-external-mod.test.js",
+      "passed": false,
+      "message": ":w! must overwrite with the buffer contents | + actual - expected |  | + 'xinitial\\n\\n'"
+    },
+    {
+      "id": "EXT-WQ-REFUSE",
+      "file": "05-external-mod.test.js",
+      "passed": true
+    },
+    {
+      "id": "EXT-SAME-CONTENT-OK",
+      "file": "05-external-mod.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'xinitial\\n\\n'"
+    },
+    {
+      "id": "EXT-CREATED-AFTER-OPEN",
+      "file": "05-external-mod.test.js",
+      "passed": true
+    },
+    {
+      "id": "EXT-BASELINE-REFRESH",
+      "file": "05-external-mod.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'yxa\\n\\n' !== 'yxa\\n' | "
+    },
+    {
+      "id": "CRASH-RECOVER",
+      "file": "06-crash-recovery.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'initial_crash\\n\\n'"
+    },
+    {
+      "id": "CRASH-MID-INSERT",
+      "file": "06-crash-recovery.test.js",
+      "passed": false,
+      "message": "after recovery the editor must be in Normal mode | + actual - expected |  | + 'initialxy\\n\\n'"
+    },
+    {
+      "id": "CRASH-COMPLEX-EDITS",
+      "file": "06-crash-recovery.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'new\\nb\\nc\\n\\n'"
+    },
+    {
+      "id": "CRASH-AFTER-SAVE",
+      "file": "06-crash-recovery.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'a1\\n\\n' !== 'a1\\n' | "
+    },
+    {
+      "id": "CRASH-RECOVERED-IS-DIRTY",
+      "file": "06-crash-recovery.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'a1\\n' !== 'a1' | "
+    },
+    {
+      "id": "CRASH-RECOVER-TWICE",
+      "file": "06-crash-recovery.test.js",
+      "passed": false,
+      "message": "a second crash after recovery must still be recoverable |  | 'a12\\n\\n' !== 'a12\\n' | "
+    },
+    {
+      "id": "SWAP-NAMING",
+      "file": "07-swap-lifecycle.test.js",
+      "passed": true
+    },
+    {
+      "id": "SWAP-DELETED-WQ",
+      "file": "07-swap-lifecycle.test.js",
+      "passed": true
+    },
+    {
+      "id": "SWAP-DELETED-CLEAN-Q",
+      "file": "07-swap-lifecycle.test.js",
+      "passed": true
+    },
+    {
+      "id": "SWAP-DELETED-FORCE-Q",
+      "file": "07-swap-lifecycle.test.js",
+      "passed": true
+    },
+    {
+      "id": "SWAP-KEPT-ON-REFUSED-QUIT",
+      "file": "07-swap-lifecycle.test.js",
+      "passed": true
+    },
+    {
+      "id": "SWAP-STALE-IGNORED",
+      "file": "07-swap-lifecycle.test.js",
+      "passed": false,
+      "message": "without --recover the leftover swap must not be replayed |  | 'a\\n' !== 'a' | "
+    },
+    {
+      "id": "UNDO-INSERT",
+      "file": "08-undo-redo.test.js",
+      "passed": false,
+      "message": "one insert session is one undo step |  | 'x\\n' !== 'x' | "
+    },
+    {
+      "id": "UNDO-DELETE",
+      "file": "08-undo-redo.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'a\\nb\\n' !== 'a\\nb' | "
+    },
+    {
+      "id": "UNDO-PASTE",
+      "file": "08-undo-redo.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'a\\nb\\n' !== 'a\\nb' | "
+    },
+    {
+      "id": "REDO",
+      "file": "08-undo-redo.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'b\\n' !== 'b' | "
+    },
+    {
+      "id": "REDO-CLEARED-BY-NEW-EDIT",
+      "file": "08-undo-redo.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'x2\\n' !== 'x2' | "
+    },
+    {
+      "id": "UNDO-YANK-NOT-A-STEP",
+      "file": "08-undo-redo.test.js",
+      "passed": false,
+      "message": "yy must not consume an undo step |  | 'x\\n' !== 'x' | "
+    },
+    {
+      "id": "UNDO-NOOP-INSERT",
+      "file": "08-undo-redo.test.js",
+      "passed": false,
+      "message": "entering and leaving Insert without typing must not consume an undo step |  | 'x\\n' !== 'x' | "
+    },
+    {
+      "id": "UNDO-DEPTH-100",
+      "file": "08-undo-redo.test.js",
+      "passed": false,
+      "message": "100 consecutive edits must all be undoable |  | 'x\\n' !== 'x' | "
+    },
+    {
+      "id": "OP-DW",
+      "file": "09-operators-motions.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'bar.baz qux\\n'"
+    },
+    {
+      "id": "OP-DW-LAST-WORD",
+      "file": "09-operators-motions.test.js",
+      "passed": false,
+      "message": "dw on the last word deletes through the end of the line | + actual - expected |  | + 'foo bar.baz \\n'"
+    },
+    {
+      "id": "OP-DE",
+      "file": "09-operators-motions.test.js",
+      "passed": false,
+      "message": "e is inclusive | + actual - expected |  | + ' bar.baz qux\\n'"
+    },
+    {
+      "id": "OP-D-DOLLAR",
+      "file": "09-operators-motions.test.js",
+      "passed": false,
+      "message": "$ is inclusive of the last character |  | 'foo \\n' !== 'foo ' | "
+    },
+    {
+      "id": "OP-D-ZERO",
+      "file": "09-operators-motions.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'bar.baz qux\\n'"
+    },
+    {
+      "id": "OP-DB",
+      "file": "09-operators-motions.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'foo .baz qux\\n'"
+    },
+    {
+      "id": "OP-C-DOLLAR",
+      "file": "09-operators-motions.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'foo X\\n' !== 'foo X' | "
+    },
+    {
+      "id": "OP-CW-LIKE-CE",
+      "file": "09-operators-motions.test.js",
+      "passed": false,
+      "message": "cw on a non-blank behaves like ce | + actual - expected |  | + 'X bar.baz qux\\n'"
+    },
+    {
+      "id": "OP-CC",
+      "file": "09-operators-motions.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'a\\nnew\\n'"
+    },
+    {
+      "id": "OP-YW-PASTE",
+      "file": "09-operators-motions.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'foo foo bar.baz qux\\n'"
+    },
+    {
+      "id": "OP-LINEWISE-MOTIONS",
+      "file": "09-operators-motions.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'a\\nd\\n' !== 'a\\nd' | "
+    },
+    {
+      "id": "MOTION-WORDS",
+      "file": "09-operators-motions.test.js",
+      "passed": true
+    },
+    {
+      "id": "MOTION-VERTICAL-CLAMP",
+      "file": "09-operators-motions.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly deep-equal: | + actual - expected |  |   ["
+    },
+    {
+      "id": "VISUAL-CHAR-DELETE",
+      "file": "10-visual-mode.test.js",
+      "passed": false,
+      "message": "v selection is inclusive of both ends | + actual - expected |  | + 'fbar.baz qux\\n'"
+    },
+    {
+      "id": "VISUAL-CHAR-YANK-PASTE",
+      "file": "10-visual-mode.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'foo bar.baz quxfoo\\n'"
+    },
+    {
+      "id": "VISUAL-LINE-DELETE",
+      "file": "10-visual-mode.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: |  | 'a\\nd\\n' !== 'a\\nd' | "
+    },
+    {
+      "id": "VISUAL-LINE-YANK-PASTE",
+      "file": "10-visual-mode.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'a\\nb\\nc\\nd\\n\\na\\nb'"
+    },
+    {
+      "id": "VISUAL-CHANGE",
+      "file": "10-visual-mode.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'X bar.baz qux\\n'"
+    },
+    {
+      "id": "VISUAL-ESCAPE",
+      "file": "10-visual-mode.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'foo bar.baz qux\\n'"
+    },
+    {
+      "id": "VISUAL-NAMED-REGISTER",
+      "file": "10-visual-mode.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'foo bar.baz quxfoo\\n'"
+    },
+    {
+      "id": "VISUAL-UNDO",
+      "file": "10-visual-mode.test.js",
+      "passed": false,
+      "message": "Expected values to be strictly equal: | + actual - expected |  | + 'foo bar.baz qux\\n'"
+    }
+  ],
+  "byRequirement": [
+    {
+      "requirement": "REQ-INSERT-MODE",
+      "weight": 0.041,
+      "earned": 0.014,
+      "failedChecks": [
+        "BASIC-INSERT-SAVE",
+        "BASIC-OPEN-LINES"
+      ]
+    },
+    {
+      "requirement": "REQ-FILE-IO",
+      "weight": 0.026,
+      "earned": 0.013,
+      "failedChecks": [
+        "BASIC-NO-PHANTOM-LINE"
+      ]
+    },
+    {
+      "requirement": "REQ-HEADLESS-REPORT",
+      "weight": 0.013,
+      "earned": 0,
+      "failedChecks": [
+        "BASIC-REPORT-FIELDS"
+      ]
+    },
+    {
+      "requirement": "REQ-UNSAVED-CHANGES-SAFETY",
+      "weight": 0.068,
+      "earned": 0.046,
+      "failedChecks": [
+        "QUIT-WQ",
+        "QUIT-AFTER-SAVE"
+      ]
+    },
+    {
+      "requirement": "REQ-COMMAND-LINE",
+      "weight": 0.022,
+      "earned": 0.011,
+      "failedChecks": [
+        "CMD-GOTO-LINE"
+      ]
+    },
+    {
+      "requirement": "REQ-REGISTERS",
+      "weight": 0.09,
+      "earned": 0,
+      "failedChecks": [
+        "REG-NAMED-NO-CLOBBER",
+        "REG-NAMED-PASTE",
+        "REG-NAMED-DELETE",
+        "REG-UNNAMED-DELETE",
+        "REG-TWO-NAMED-INDEPENDENT"
+      ]
+    },
+    {
+      "requirement": "REQ-COUNT-MULTIPLIERS",
+      "weight": 0.084,
+      "earned": 0.014,
+      "failedChecks": [
+        "COUNT-DD",
+        "COUNT-DD-REGISTER-ORDER",
+        "COUNT-P-LINE",
+        "COUNT-P-CHAR",
+        "COUNT-DW"
+      ]
+    },
+    {
+      "requirement": "REQ-MOTIONS",
+      "weight": 0.031,
+      "earned": 0.009,
+      "failedChecks": [
+        "COUNT-MOTIONS",
+        "MOTION-VERTICAL-CLAMP"
+      ]
+    },
+    {
+      "requirement": "REQ-OPERATORS",
+      "weight": 0.102,
+      "earned": 0,
+      "failedChecks": [
+        "OP-DW",
+        "OP-DW-LAST-WORD",
+        "OP-DE",
+        "OP-D-DOLLAR",
+        "OP-D-ZERO",
+        "OP-DB",
+        "OP-C-DOLLAR",
+        "OP-CW-LIKE-CE",
+        "OP-CC",
+        "OP-YW-PASTE",
+        "OP-LINEWISE-MOTIONS"
+      ]
+    },
+    {
+      "requirement": "REQ-UNDO-REDO",
+      "weight": 0.123,
+      "earned": 0,
+      "failedChecks": [
+        "COUNT-UNDO",
+        "UNDO-INSERT",
+        "UNDO-DELETE",
+        "UNDO-PASTE",
+        "REDO",
+        "REDO-CLEARED-BY-NEW-EDIT",
+        "UNDO-YANK-NOT-A-STEP",
+        "UNDO-NOOP-INSERT",
+        "UNDO-DEPTH-100"
+      ]
+    },
+    {
+      "requirement": "REQ-EXTERNAL-MODIFICATION",
+      "weight": 0.12,
+      "earned": 0.06,
+      "failedChecks": [
+        "EXT-FORCE",
+        "EXT-SAME-CONTENT-OK",
+        "EXT-BASELINE-REFRESH"
+      ]
+    },
+    {
+      "requirement": "REQ-CRASH-RECOVERY",
+      "weight": 0.12,
+      "earned": 0,
+      "failedChecks": [
+        "CRASH-RECOVER",
+        "CRASH-MID-INSERT",
+        "CRASH-COMPLEX-EDITS",
+        "CRASH-AFTER-SAVE",
+        "CRASH-RECOVERED-IS-DIRTY",
+        "CRASH-RECOVER-TWICE"
+      ]
+    },
+    {
+      "requirement": "REQ-SWAP-LIFECYCLE",
+      "weight": 0.08,
+      "earned": 0.067,
+      "failedChecks": [
+        "SWAP-STALE-IGNORED"
+      ]
+    },
+    {
+      "requirement": "REQ-VISUAL-MODE",
+      "weight": 0.08,
+      "earned": 0,
+      "failedChecks": [
+        "VISUAL-CHAR-DELETE",
+        "VISUAL-CHAR-YANK-PASTE",
+        "VISUAL-LINE-DELETE",
+        "VISUAL-LINE-YANK-PASTE",
+        "VISUAL-CHANGE",
+        "VISUAL-ESCAPE",
+        "VISUAL-NAMED-REGISTER",
+        "VISUAL-UNDO"
+      ]
+    }
+  ],
+  "failureCategories": [
+    {
+      "requirement": "REQ-INSERT-MODE",
+      "failedChecks": [
+        "BASIC-INSERT-SAVE",
+        "BASIC-OPEN-LINES"
+      ]
+    },
+    {
+      "requirement": "REQ-FILE-IO",
+      "failedChecks": [
+        "BASIC-NO-PHANTOM-LINE"
+      ]
+    },
+    {
+      "requirement": "REQ-HEADLESS-REPORT",
+      "failedChecks": [
+        "BASIC-REPORT-FIELDS"
+      ]
+    },
+    {
+      "requirement": "REQ-UNSAVED-CHANGES-SAFETY",
+      "failedChecks": [
+        "QUIT-WQ",
+        "QUIT-AFTER-SAVE"
+      ]
+    },
+    {
+      "requirement": "REQ-COMMAND-LINE",
+      "failedChecks": [
+        "CMD-GOTO-LINE"
+      ]
+    },
+    {
+      "requirement": "REQ-REGISTERS",
+      "failedChecks": [
+        "REG-NAMED-NO-CLOBBER",
+        "REG-NAMED-PASTE",
+        "REG-NAMED-DELETE",
+        "REG-UNNAMED-DELETE",
+        "REG-TWO-NAMED-INDEPENDENT"
+      ]
+    },
+    {
+      "requirement": "REQ-COUNT-MULTIPLIERS",
+      "failedChecks": [
+        "COUNT-DD",
+        "COUNT-DD-REGISTER-ORDER",
+        "COUNT-P-LINE",
+        "COUNT-P-CHAR",
+        "COUNT-DW"
+      ]
+    },
+    {
+      "requirement": "REQ-MOTIONS",
+      "failedChecks": [
+        "COUNT-MOTIONS",
+        "MOTION-VERTICAL-CLAMP"
+      ]
+    },
+    {
+      "requirement": "REQ-OPERATORS",
+      "failedChecks": [
+        "OP-DW",
+        "OP-DW-LAST-WORD",
+        "OP-DE",
+        "OP-D-DOLLAR",
+        "OP-D-ZERO",
+        "OP-DB",
+        "OP-C-DOLLAR",
+        "OP-CW-LIKE-CE",
+        "OP-CC",
+        "OP-YW-PASTE",
+        "OP-LINEWISE-MOTIONS"
+      ]
+    },
+    {
+      "requirement": "REQ-UNDO-REDO",
+      "failedChecks": [
+        "COUNT-UNDO",
+        "UNDO-INSERT",
+        "UNDO-DELETE",
+        "UNDO-PASTE",
+        "REDO",
+        "REDO-CLEARED-BY-NEW-EDIT",
+        "UNDO-YANK-NOT-A-STEP",
+        "UNDO-NOOP-INSERT",
+        "UNDO-DEPTH-100"
+      ]
+    },
+    {
+      "requirement": "REQ-EXTERNAL-MODIFICATION",
+      "failedChecks": [
+        "EXT-FORCE",
+        "EXT-SAME-CONTENT-OK",
+        "EXT-BASELINE-REFRESH"
+      ]
+    },
+    {
+      "requirement": "REQ-CRASH-RECOVERY",
+      "failedChecks": [
+        "CRASH-RECOVER",
+        "CRASH-MID-INSERT",
+        "CRASH-COMPLEX-EDITS",
+        "CRASH-AFTER-SAVE",
+        "CRASH-RECOVERED-IS-DIRTY",
+        "CRASH-RECOVER-TWICE"
+      ]
+    },
+    {
+      "requirement": "REQ-SWAP-LIFECYCLE",
+      "failedChecks": [
+        "SWAP-STALE-IGNORED"
+      ]
+    },
+    {
+      "requirement": "REQ-VISUAL-MODE",
+      "failedChecks": [
+        "VISUAL-CHAR-DELETE",
+        "VISUAL-CHAR-YANK-PASTE",
+        "VISUAL-LINE-DELETE",
+        "VISUAL-LINE-YANK-PASTE",
+        "VISUAL-CHANGE",
+        "VISUAL-ESCAPE",
+        "VISUAL-NAMED-REGISTER",
+        "VISUAL-UNDO"
+      ]
+    }
+  ]
+}

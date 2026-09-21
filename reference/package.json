@@ -1,0 +1,15 @@
+{
+  "name": "vim-style-editor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reference solution: terminal Vim-style text editor with headless verifier mode",
+  "main": "dist/cli/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/cli/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

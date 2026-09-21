@@ -1,0 +1,87 @@
+Build an RL Gym Task for Coding Agents
+RL Gym
+RLVR
+AI Evaluation
+Benchmarking
+Software Engineering
+Avg. 2 days
+We are looking for an experienced Software Engineer to design, implement a repository-level software engineering task used to evaluate autonomous AI coding agents in an RL Gym environment.
+
+How This Task Works (The Core Concept)
+Model-Facing Instruction (task/instruction.md): You will write a clear problem description for the AI model. The instruction should keep the internal technical approach open (vague on architecture), but be precise and unambiguous about observable behaviors, workflows, and edge cases so it matches what the test suite verifies.
+Reference Solution (reference/): You will write an ideal, fully-functional implementation that satisfies all specifications and achieves a 100% score on the verifier suite.
+Private Verifier & Mutants (evaluation/): You will build a hidden black-box test suite that tests external behavior (file states, commands, exit codes). You will also create mutants (deliberately bugged variations of your code) to prove that your test suite reliably catches failures.
+Model Evaluation (evaluation/proof-of-work/): You will evaluate two AI models (Claude Opus 5 and GPT-5.6-sol) on the task in a single pass (one attempt). Both models must score below 30% to prove the task is sufficiently challenging.
+Application Requirements: Terminal Vim-Style Text Editor
+The application to be built is a terminal-based Vim-style text editor for local files. To allow black-box verifier testing, core editing logic must be decoupled from terminal UI rendering.
+
+Features & Edge Cases can be supported:
+
+Modal Modes: Normal mode, Insert mode, and Visual mode.
+Vim Mechanics: Copy, delete, paste, undo, named registers (e.g., "a, "b), and numeric command multipliers (e.g., 3dd to delete 3 lines, 5p to paste 5 times).
+Unsaved Changes Safety: Block :q exits when unsaved edits exist unless forced with :q!.
+External Modification Detection: Detect if an open file was modified on disk by another process and warn the user before writing (:w).
+Crash Recovery: Maintain a hidden swap/journal file to restore uncommitted edits following an unexpected process crash (SIGKILL).
+Use this requirement as the starting point. Turn it into a realistic and sufficiently deep application with features, stateful workflows, edge cases, and failure scenarios that require meaningful design and implementation work. Keep the technical approach open define the expected behavior and observable outcomes without prescribing a specific internal architecture.
+
+Deliverables & Repository Structure
+Your deliverable will be one private GitHub repository structured as follows:
+
+.
+├── task/                       # Model instructions & public materials
+│   ├── instruction.md
+│   └── public/
+├── reference/                  # Reference solution (passes 100% of checks)
+├── evaluation/                 # Hidden verifier suite
+│   ├── tests/                  # Deterministic verifier checks
+│   ├── acceptance-criteria.yml # Requirements linked to check IDs
+│   ├── scoring.yml             # weights (Sum = 1.0)
+│   └── proof-of-work/          # Reference solution run,Model run logs and mutant outputs
+├── app-setup/                  # Task lifecycle scripts
+│   ├── build.sh
+│   ├── start.sh
+│   └── reset.sh
+└── package.json                # Root package configuration & evaluation commands
+Copy
+Configuration & Lifecycle Management
+1. Lifecycle Scripts (app-setup/ )
+The application lifecycle scripts handle preparing and running the model's generated solution so the verifier can interact with it:
+
+build.sh – Compiles and prepares the model solution.
+reset.sh – Deletes generated state/artifacts to ensure a clean rebuild.
+start.sh – Starts the model runtime so the verifier can interact with it.
+2. Root Package Commands (package.json )
+solution generation, mutant verification and scoring are driven via the root package.json:
+
+{
+  "name": "<project-name>",
+  "version": "0.1.0",
+  "private": true,
+  "description": "<project-description>",
+  "scripts": {
+    "generate": "<solution-generation-command>",
+    "score": "<solution-scoring-and-verification-command>",
+    "check:mutants": "<verifier-mutant-check-command>",
+    "check:reference": "<reference-solution-check-command>"
+  }
+}
+Copy
+Steps to Complete the Project
+Design the Task: Define the application's user workflows, state management, edge cases, and failure scenarios.
+Write Agent Instruction: Write task/instruction.md defining observable software behavior, constraints, and error handling without prescribing a specific code structure.
+Build Reference Solution: Develop a complete reference solution in reference/ that achieves a 100% score.
+Build Private Evaluation Suite:
+Hidden Verifier Tests: Black-box unit and integration tests inside evaluation/tests/.
+Acceptance Criteria (evaluation/acceptance-criteria.yml): Map observable requirements to verifier test IDs.
+Scoring Rules (evaluation/scoring.yml): Define component weights to sum to exactly 1.0.
+Mutant Suite: Create realistic code bugs and confirm npm run check:mutants catches each mutant.
+Evaluating Models: Evaluate Claude Opus 5 (medium reasoning) and GPT-5.6-sol (medium reasoning) on a single-pass run using npm run generate / npm run score. Confirm both score below 30% and record logs, scores, and failure categories in evaluation/proof-of-work/.
+Set Up App Scripts & Package: Implement app-setup/ scripts (build.sh, reset.sh, start.sh) and populate package.json scripts.
+Quality & Acceptance Criteria
+Reference Pass Rate: Reference solution passes 100% of score-bearing checks (npm run check:reference).
+Model Difficulty: Claude Opus 5 and GPT-5.6-sol score below 30% on a single-pass evaluation.
+Determinism: Repeated verifier runs produce stable, consistent results.
+Mutant Coverage: Every mutant is realistic and caught via npm run check:mutants.
+Scoring: Weights in scoring.yml sum to exactly 1.0.
+Privacy: All private verifier assets remain isolated from model-facing directories.
+Access: Collaborator access granted to content.team@problemsetters.com.
